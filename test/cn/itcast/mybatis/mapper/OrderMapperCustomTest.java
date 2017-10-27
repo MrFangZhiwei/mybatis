@@ -1,6 +1,7 @@
 package cn.itcast.mybatis.mapper;
 
 import cn.itcast.mybatis.po.OrderCustom;
+import cn.itcast.mybatis.po.Orders;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -45,7 +46,18 @@ public class OrderMapperCustomTest
             System.out.println(list);
 
     }
+    @Test
+    public void findOrderUserListResultMap() throws Exception {
 
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        // 创建代理对象
+        OrderMapperCustom orderMapperCustom = sqlSession.getMapper(OrderMapperCustom.class);
+
+        List<Orders> list = orderMapperCustom.findOrderUserListResultMap();
+
+        System.out.println(list);
+
+    }
 
 
 }

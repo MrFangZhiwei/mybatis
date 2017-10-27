@@ -1,6 +1,7 @@
 package cn.itcast.mybatis.mapper;
 
 import cn.itcast.mybatis.po.OrderCustom;
+import cn.itcast.mybatis.po.Orders;
 
 import java.util.List;
 
@@ -14,6 +15,6 @@ import java.util.List;
  */
 public interface OrderMapperCustom
 {
-    public List<OrderCustom> findOrderUserList()throws Exception;
-
+    List<OrderCustom> findOrderUserList()throws Exception;
+    List<Orders> findOrderUserListResultMap()throws Exception;
 }

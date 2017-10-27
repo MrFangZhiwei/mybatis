@@ -3,16 +3,40 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.itcast.mybatis.mapper.OrderMapperCustom">
+    <!--一对一查询的resultMap-->
+    <resultMap id="ordersUserResultMap" type="cn.itcast.mybatis.po.Orders">
+        <id column="id" property="id"></id>
+        <result column="user_id" property="userId"></result>
+        <result column="number" property="number"></result>
+        <result column="createtime" property="createtime"></result>
+        <result column="note" property="note"></result>
+        <association property="user" javaType="user">
+            <id column="user_id" property="id"></id>
+            <result column="username" property="username"></result>
+            <result column="sex" property="sex"></result>
+        </association>
+    </resultMap>
     <!--一对一的查询-->
     <select id="findOrderUserList" resultType="orderCustom">
+         SELECT
+        orders.*, USER .username,
+        USER .sex
+        FROM
+        orders,
+        USER
+        WHERE
+        orders.user_id = USER .id
+    </select>
+    <!--一对一查询使用resultMap查询-->
+    <select id="findOrderUserListResultMap" resultMap="ordersUserResultMap">
         SELECT
-	orders.*, USER .username,
-	USER .sex
-FROM
-	orders,
-	USER
-WHERE
-	orders.user_id = USER .id
+        orders.*, USER .username,
+        USER .sex
+        FROM
+        orders,
+        USER
+        WHERE
+        orders.user_id = USER .id
     </select>
 </mapper>
 
