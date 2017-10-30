@@ -3,6 +3,20 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.itcast.mybatis.mapper.OrderMapperCustom">
+    <!--一对多,查询订单及明细表-->
+    <resultMap id="orderOrderDeatilResultMap" type="orders" extends="ordersUserResultMap">
+        <!--映射订单信息这里使用继承ordersUserResultMap-->
+        <!--映射用户信息-->
+        <!--映射订单明细信息
+        property:将关联信息映射到orders的哪个属性中
+        ofType:集合中pojo的类型
+        -->
+        <collection property="orderdetails" ofType="Orderdetail">
+            <id column="orderdetail_id" property="id"></id>
+            <result column="items_num" property="itemsNum"></result>
+            <result column="items_id" property="itemsId"></result>
+        </collection>
+    </resultMap>
     <!--一对一查询的resultMap-->
     <resultMap id="ordersUserResultMap" type="cn.itcast.mybatis.po.Orders">
         <id column="id" property="id"></id>
@@ -10,6 +24,10 @@
         <result column="number" property="number"></result>
         <result column="createtime" property="createtime"></result>
         <result column="note" property="note"></result>
+        <!--映射用户明细信息
+        property:将关联信息映射到Orders的哪个属性中
+        javaType:pojo的类型
+        -->
         <association property="user" javaType="user">
             <id column="user_id" property="id"></id>
             <result column="username" property="username"></result>
@@ -37,6 +55,22 @@
         USER
         WHERE
         orders.user_id = USER .id
+    </select>
+    <!--一对多查询使用resultMap查询查询订单关联查询订单明细-->
+    <select id="findOrderAndOrderDetailResultMap" resultMap="orderOrderDeatilResultMap">
+         SELECT
+        orders.*,
+        USER .username,
+        USER .sex,
+        orderdetail.id orderdetail_id,
+        orderdetail.items_num,
+        orderdetail.items_id
+        FROM
+        orders,
+        USER,
+        orderdetail
+        WHERE
+        orders.user_id = USER .id And orders.id=orderdetail.orders_id
     </select>
 </mapper>
 

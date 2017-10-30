@@ -17,4 +17,5 @@ public interface OrderMapperCustom
 {
     List<OrderCustom> findOrderUserList()throws Exception;
     List<Orders> findOrderUserListResultMap()throws Exception;
+    List<Orders> findOrderAndOrderDetailResultMap()throws Exception;
 }

@@ -139,6 +139,5 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" scope="TEST" name="junit-4.10" level="application" />
   </component>
 </module>

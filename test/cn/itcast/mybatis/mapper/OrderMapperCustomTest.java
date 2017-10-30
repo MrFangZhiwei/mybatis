@@ -58,6 +58,17 @@ public class OrderMapperCustomTest
         System.out.println(list);
 
     }
+    @Test
+    public void findOrderAndOrderDetailResultMap() throws Exception {
 
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        // 创建代理对象
+        OrderMapperCustom orderMapperCustom = sqlSession.getMapper(OrderMapperCustom.class);
+
+        List<Orders> list = orderMapperCustom.findOrderAndOrderDetailResultMap();
+
+        System.out.println(list);
+
+    }
 
 }
